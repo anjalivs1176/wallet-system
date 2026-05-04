@@ -14,6 +14,10 @@ public class UserEventPublisher {
     }
 
     public void publishUserCreatedEvent(UserCreatedEvent event) {
-        kafkaTemplate.send("user-created-topic", event);
+        try {
+            kafkaTemplate.send("user-created-topic", event).get();
+        } catch (Exception e) {
+            throw new RuntimeException("Kafka send failed", e);
+        }
     }
 }

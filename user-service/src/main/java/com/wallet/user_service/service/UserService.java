@@ -1,5 +1,6 @@
 package com.wallet.user_service.service;
 
+import java.util.*;
 import com.wallet.user_service.entity.User;
 import com.wallet.user_service.repository.UserRepository;
 import com.wallet.user_service.requestDto.UserRequest;
@@ -71,7 +72,19 @@ public class UserService {
                 java.time.LocalDateTime.now().toString()
         );
 
-        userEventPublisher.publishUserCreatedEvent(event);
+        try {
+            userEventPublisher.publishUserCreatedEvent(event);
+        } catch (Exception e) {
+
+            System.out.println("Kafka failed, switching to REST");
+
+            String url = "https://wallet-service-qyy9.onrender.com/wallet/create";
+
+            Map<String, Object> body = new HashMap<>();
+            body.put("userId", saved.getId());
+
+            restTemplate.postForObject(url, body, String.class);
+        }
 
         return mapToResponse(saved);
     }

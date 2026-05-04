@@ -1,5 +1,6 @@
 package com.wallet.wallet_service.controller;
 
+import java.util.*;
 import com.wallet.wallet_service.dto.TransferRequest;
 import com.wallet.wallet_service.entity.Transaction;
 import com.wallet.wallet_service.entity.Wallet;
@@ -31,6 +32,16 @@ public class WalletController {
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createWallet(@RequestBody Map<String, Long> request) {
+
+        Long userId = request.get("userId");
+
+        walletService.createWallet(userId);
+
+        return ResponseEntity.ok("Wallet created");
     }
 
     @GetMapping("/my-wallet")
