@@ -11,8 +11,7 @@ import com.wallet.user_service.event.UserCreatedEvent;
 
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Optional;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class UserService {
@@ -21,16 +20,19 @@ public class UserService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final UserEventPublisher userEventPublisher;
+    private final RestTemplate restTemplate;
 
     public UserService(UserRepository userRepository,
             JwtUtil jwtUtil,
             PasswordEncoder passwordEncoder,
-            UserEventPublisher userEventPublisher) {
+            UserEventPublisher userEventPublisher,
+            RestTemplate restTemplate) {
 
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
         this.userEventPublisher = userEventPublisher;
+        this.restTemplate = restTemplate;
     }
 
     private UserResponse mapToResponse(User user) {
