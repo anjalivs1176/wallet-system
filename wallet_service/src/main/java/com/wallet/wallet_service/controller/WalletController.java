@@ -33,7 +33,6 @@ public class WalletController {
                 .getPrincipal();
     }
 
-
     @GetMapping("/my-wallet")
     public ResponseEntity<Wallet> getWallet() {
         return ResponseEntity.ok(walletService.getWallet(getUserId()));
@@ -77,5 +76,3 @@ public class WalletController {
         );
     }
 }
-
-
