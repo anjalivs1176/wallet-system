@@ -34,15 +34,15 @@ public class WalletController {
                 .getPrincipal();
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createWallet(@RequestBody Map<String, Long> request) {
+    // @PostMapping("/create")
+    // public ResponseEntity<?> createWallet(@RequestBody Map<String, Long> request) {
 
-        Long userId = request.get("userId");
+    //     Long userId = request.get("userId");
 
-        walletService.createWallet(userId);
+    //     walletService.createWallet(userId);
 
-        return ResponseEntity.ok("Wallet created");
-    }
+    //     return ResponseEntity.ok("Wallet created");
+    // }
 
     @GetMapping("/my-wallet")
     public ResponseEntity<Wallet> getWallet() {
